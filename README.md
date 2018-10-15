@@ -22,8 +22,7 @@ This include can be added to the header or placed inline before the script is in
 ```javascript
 var imagefallback = new Imagefallback({
 	'elements': document.querySelectorAll('img, [style*="background-image"]'),
-	'width': 800,
-	'height': 600
+	'url': 'https://picsum.photos/800/600'
 });
 ```
 
