@@ -9,12 +9,15 @@
 // establish the class
 var ImageFallback = function (config) {
 
-	if (!config.active) return false;
-
 	// PROPERTIES
 
-	this.config = config;
-	this.element = config.element;
+	this.config = {
+		'active': true,
+		'images': 'img',
+		'backgrounds': '[style*="background-image"]',
+	}
+
+	for (var name in config) { this.config[name] = config[name] }
 
 	// METHODS
 
@@ -47,16 +50,18 @@ var ImageFallback = function (config) {
 
 	// EVENTS
 
+	if (!this.config.active) return false;
+
 	new WaitForIt({
 		'target': document,
-		'selector': config.images,
+		'selector': this.config.images,
 		'handler': this.checkImages.bind(this),
 		'repeat': true
 	});
 
 	new WaitForIt({
 		'target': document,
-		'selector': config.backgrounds,
+		'selector': this.config.backgrounds,
 		'handler': this.checkBackgrounds.bind(this),
 		'repeat': true
 	});

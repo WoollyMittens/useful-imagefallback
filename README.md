@@ -28,7 +28,7 @@ var imageFallback = new ImageFallback({
 });
 ```
 
-**'active' : {Boolean}** - Only run the script when this condition is met.
+**'active' : {Boolean}** - Optionally only run when a condition is met (e.g. a keyword is present in localstorage).
 
 **'images' : {CSS rule}** - Rule that describes affected images.
 
