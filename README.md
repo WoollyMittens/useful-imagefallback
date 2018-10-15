@@ -21,11 +21,14 @@ This include can be added to the header or placed inline before the script is in
 
 ```javascript
 var imageFallback = new ImageFallback({
+	'active': (localStorage.getItem('ImageFallback')=='on'),
 	'images': 'img',
 	'backgrounds': '[style*="background-image"]',
 	'url': '../img/fallback.jpg' //'https://picsum.photos/800/600'
 });
 ```
+
+**'active' : {Boolean}** - Only run the script when this condition is met.
 
 **'images' : {CSS rule}** - Rule that describes affected images.
 

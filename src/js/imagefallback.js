@@ -9,6 +9,8 @@
 // establish the class
 var ImageFallback = function (config) {
 
+	if (!config.active) return false;
+
 	// PROPERTIES
 
 	this.config = config;
@@ -60,6 +62,16 @@ var ImageFallback = function (config) {
 	});
 
 };
+
+// catch (de)activation
+
+if (/imagefallback=on/i.test(document.location.href)) {
+	localStorage.setItem('ImageFallback', 'on');
+}
+
+if (/imagefallback=off/i.test(document.location.href)) {
+	localStorage.setItem('ImageFallback', 'off');
+}
 
 // return as a require.js module
 if (typeof module !== 'undefined') {
