@@ -12,9 +12,10 @@ var ImageFallback = function (config) {
 	// PROPERTIES
 
 	this.config = {
-		'active': true,
+		'active': (localStorage.getItem('ImageFallback')=='on'),
 		'images': 'img',
 		'backgrounds': '[style*="background-image"]',
+		'url': 'https://picsum.photos/800/600'
 	}
 
 	for (var name in config) { this.config[name] = config[name] }

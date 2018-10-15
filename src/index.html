@@ -34,6 +34,17 @@
 						<p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 					</figcaption>
 				</figure>
+				<script>
+					var imageFallback = new ImageFallback({
+						'active': true,
+						'images': 'img',
+						'backgrounds': '[style*="background-image"]',
+						'url': '../img/fallback.jpg'
+					});
+				</script>
+				<!-- Cut above this -->
+
+				<!-- Simulated AJAX loader -->
 				<div id="imagefallback-more"></div>
 				<script type="text/template" id="imagefallback-template">
 					<figure class="imagefallback-aside"><div class="imagefallback-image"><img alt="" src="this_image_is_intentionally_missing.jpg"></div><figcaption><h2>Lorem ipsum dolor sit amet</h2><p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></figcaption></figure>
@@ -41,15 +52,6 @@
 				<p>
 					<a href="#" class="button" onclick="document.getElementById('imagefallback-more').innerHTML+=document.getElementById('imagefallback-template').innerHTML">More</a>
 				</p>
-				<script>
-					var imageFallback = new ImageFallback({
-						'active': true, // (localStorage.getItem('ImageFallback')=='on'),
-						'images': 'img',
-						'backgrounds': '[style*="background-image"]',
-						'url': '../img/fallback.jpg' // 'https://picsum.photos/800/600'
-					});
-				</script>
-				<!-- Cut above this -->
 
 			</aside>
 		</section>
