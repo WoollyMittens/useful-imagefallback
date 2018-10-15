@@ -9,27 +9,55 @@
 // establish the class
 var ImageFallback = function (config) {
 
-	this.only = function (config) {
-		// start an instance of the script
-		return new this.Main(config, this);
-	};
+	// PROPERTIES
 
-	this.each = function (config) {
-		var _config, _context = this, instances = [];
-		// for all element
-		for (var a = 0, b = config.elements.length; a < b; a += 1) {
-			// clone the configuration
-			_config = Object.create(config);
-			// insert the current element
-			_config.element = config.elements[a];
-			// start a new instance of the object
-			instances[a] = new this.Main(_config, _context);
+	this.config = config;
+	this.element = config.element;
+
+	// METHODS
+
+	this.checkImages = function(elements) {
+		for (var a = 0, b = elements.length; a < b; a += 1) {
+			// catch load errors
+			elements[a].onerror = this.onImageError.bind(this, elements[a]);
 		}
-		// return the instances
-		return instances;
 	};
 
-	return (config.elements) ? this.each(config) : this.only(config);
+	this.checkBackgrounds = function(elements) {
+		var image;
+		for (var a = 0, b = elements.length; a < b; a += 1) {
+			// test if the background url exists with image objects
+			image = new Image(100,100);
+			image.onerror = this.onBackgroundError.bind(this, elements[a]);
+			image.src = elements[a].style.backgroundImage.split(/url\("|"\)|url\('|'\)/gi)[1];
+		}
+	};
+
+	this.onImageError = function (element, evt) {
+		// replace the image with a placeholder
+		element.src = this.config.url;
+	};
+
+	this.onBackgroundError = function (element, evt) {
+		// replace the background with a placeholder
+		element.style.backgroundImage = 'url("' + this.config.url + '")';
+	};
+
+	// EVENTS
+
+	new WaitForIt({
+		'target': document,
+		'selector': config.images,
+		'handler': this.checkImages.bind(this),
+		'repeat': true
+	});
+
+	new WaitForIt({
+		'target': document,
+		'selector': config.backgrounds,
+		'handler': this.checkBackgrounds.bind(this),
+		'repeat': true
+	});
 
 };
 

@@ -20,15 +20,18 @@ This include can be added to the header or placed inline before the script is in
 ```
 
 ```javascript
-var imagefallback = new Imagefallback({
-	'elements': document.querySelectorAll('img, [style*="background-image"]'),
-	'url': 'https://picsum.photos/800/600'
+var imageFallback = new ImageFallback({
+	'images': 'img',
+	'backgrounds': '[style*="background-image"]',
+	'url': '../img/fallback.jpg' //'https://picsum.photos/800/600'
 });
 ```
 
-**'elements' : {DOM nodes}** - The elements to watch and/or affect.
+**'images' : {CSS rule}** - Rule that describes affected images.
 
-**'url' : {string}** - Path to a placeholder image.
+**'background' : {CSS rule}** - Rule that describes affected backgrounds.
+
+**'url' : {string}** - Path to a placeholder image or service.
 
 ## How to build the script
 

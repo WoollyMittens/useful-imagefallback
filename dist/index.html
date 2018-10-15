@@ -17,13 +17,11 @@
 			<article>
 				<h2>Image Fallback</h2>
 				<p>Replace missing (inline) images with a placeholder.</p>
-				<p>Turn on the fallback images: <a href="?imagefallback=on">activate</a></p>
 				<p><a class="button downloadButton" href="http://github.com/WoollyMittens/useful-imagefallback" target="_blank">Download (GitHub)</a></p>
 			</article>
 			<aside>
 
 				<!-- Cut below this -->
-				<p><a href="?imagefallback=on">activate</a> | <a href="?imagefallback=off">deactivate</a></p>
 				<style>@import url("./css/imagefallback.css");</style>
 				<script src="./js/imagefallback.js"></script>
 				<figure class="imagefallback-feature" style="background-image:url('this_image_is_intentionally_missing.jpg')">
@@ -36,22 +34,19 @@
 						<p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 					</figcaption>
 				</figure>
-				<figure class="imagefallback-aside">
-					<div class="imagefallback-image"><img alt="" src="this_image_is_intentionally_missing.jpg"></div>
-					<figcaption>
-						<h2>Lorem ipsum dolor sit amet</h2>
-						<p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-					</figcaption>
-				</figure>
+				<div id="imagefallback-more"></div>
+				<script type="text/template" id="imagefallback-template">
+					<figure class="imagefallback-aside"><div class="imagefallback-image"><img alt="" src="this_image_is_intentionally_missing.jpg"></div><figcaption><h2>Lorem ipsum dolor sit amet</h2><p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></figcaption></figure>
+				</script>
+				<p>
+					<a href="#" class="button" onclick="document.getElementById('imagefallback-more').innerHTML+=document.getElementById('imagefallback-template').innerHTML">More</a>
+				</p>
 				<script>
-					// activate or de-activate the feature
-					if (/imagefallback=on/i.test(document.location.search)) { localStorage.setItem('imagefallback', 'on'); }
-					if (/imagefallback=off/i.test(document.location.search)) { localStorage.setItem('imagefallback', 'off'); }
-					// check for fallbacks
-					var imageFallback = (localStorage.getItem('imagefallback') == 'on') ? new ImageFallback({
-						'elements': document.querySelectorAll('img, [style*="background-image"]'),
-						'url': 'https://picsum.photos/800/600'
-					}) : null;
+					var imageFallback = new ImageFallback({
+						'images': 'img',
+						'backgrounds': '[style*="background-image"]',
+						'url': '../img/fallback.jpg' //'https://picsum.photos/800/600'
+					});
 				</script>
 				<!-- Cut above this -->
 

@@ -17,8 +17,7 @@ var gulp = require('gulp'),
 	special = require('gulp-special-html'),
 	clean = require('gulp-clean'),
 	prerequisites = [
-		//'polyfills',
-		//'requests'
+		'waitforit'
 	];
 
 // prerequisites

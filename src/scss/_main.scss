@@ -5,7 +5,7 @@
 .imagefallback-feature {
 	position: relative;
 	margin: 0 0 2rem;
-	padding-bottom: 60%;
+	padding-bottom: 75%;
 	background-size: cover;
 	background-position: center;
 
@@ -30,6 +30,7 @@
 		img {
 			width: 10rem;
 			height: auto;
+			vertical-align: top;
 		}
 	}
 
