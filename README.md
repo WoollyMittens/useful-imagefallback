@@ -24,7 +24,7 @@ var imageFallback = new ImageFallback({
 	'active': (localStorage.getItem('ImageFallback')=='on'),
 	'images': 'img',
 	'backgrounds': '[style*="background-image"]',
-	'url': '../img/fallback.jpg' //'https://picsum.photos/800/600'
+	'url': './img/fallback.jpg' //'https://picsum.photos/800/600'
 });
 ```
 
@@ -35,6 +35,10 @@ var imageFallback = new ImageFallback({
 **'background' : {CSS rule}** - Rule that describes affected backgrounds.
 
 **'url' : {string}** - Path to a placeholder image or service.
+
+## How to activate the script
+
+Allow or disallow the image fallbacks by adding `?imagefallback=on` or `?imagefallback=off` to the end of your url. This makes it harder for the functionality to be accidentally pushed to a production server.
 
 ## How to build the script
 
