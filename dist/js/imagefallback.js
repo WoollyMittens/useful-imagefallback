@@ -95,6 +95,14 @@ var ImageFallback = function (config) {
 
 	// PROPERTIES
 
+	if (/imagefallback=on/i.test(document.location.href)) {
+		localStorage.setItem('ImageFallback', 'on');
+	}
+
+	if (/imagefallback=off/i.test(document.location.href)) {
+		localStorage.setItem('ImageFallback', 'off');
+	}
+
 	this.config = {
 		'active': (localStorage.getItem('ImageFallback')=='on'),
 		'images': 'img',
@@ -152,16 +160,6 @@ var ImageFallback = function (config) {
 	});
 
 };
-
-// catch (de)activation
-
-if (/imagefallback=on/i.test(document.location.href)) {
-	localStorage.setItem('ImageFallback', 'on');
-}
-
-if (/imagefallback=off/i.test(document.location.href)) {
-	localStorage.setItem('ImageFallback', 'off');
-}
 
 // return as a require.js module
 if (typeof module !== 'undefined') {
