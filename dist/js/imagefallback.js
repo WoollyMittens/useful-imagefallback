@@ -162,6 +162,5 @@ var ImageFallback = function (config) {
 };
 
 // return as a require.js module
-if (typeof module !== 'undefined') {
-	exports = module.exports = ImageFallback;
-}
+if (typeof define != 'undefined') define(['imagefallback'], function () { return ImageFallback });
+if (typeof module != 'undefined') module.exports = ImageFallback;
