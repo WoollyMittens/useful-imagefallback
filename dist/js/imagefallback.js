@@ -1,89 +1,5 @@
 /*
 	Source:
-	van Creij, Maurice (2018). "waitforit.js: Waits for an element to start existing", http://www.woollymittens.nl/.
-
-	License:
-	This work is licensed under a Creative Commons Attribution 3.0 Unported License.
-*/
-
-// establish the class
-var WaitForIt = function(cfg) {
-
-	// PROPERTIES
-
-	this.target = cfg.target || document;
-	this.target = (typeof this.target === 'string') ? document.querySelector(this.target) : this.target;
-	this.selector = cfg.selector;
-	this.handler = cfg.handler || function() {};
-	this.repeat = cfg.repeat || false;
-
-	// METHODS
-
-	this.MutationObserver = window.MutationObserver || window.WebKitMutationObserver || function() {
-		// create a dummy observer is a native one doesn't exist
-		this.observe = function() {
-			this.interval = setInterval(this.promise.bind(this, null, this), 500);
-		};
-		this.disconnect = function() {
-			clearInterval(this.interval);
-		};
-		this.promise = arguments[0];
-	};
-
-	this.onMutation = function(mutations, observer) {
-		var selection = [];
-		var complete = true;
-		// if the selector an array
-		if (this.selector.constructor === Array) {
-			// check all the conditions
-			for (var a = 0, b = this.selector.length; a < b; a += 1) {
-				selection[a] = document.querySelectorAll(this.selector[a]);
-				complete = complete && (selection[a].length > 0);
-			}
-		} else {
-			// or check the only condition
-			selection = document.querySelectorAll(this.selector);
-			complete = (selection.length > 0);
-		}
-		// check if the element(s) exists yet
-		if (complete) {
-			// stop observing
-			if (!this.repeat) {
-				observer.disconnect();
-			}
-			// resolve the promise
-			this.handler(selection);
-		};
-	};
-
-	// EVENTS
-
-	if (this.target) {
-
-		this.observer = new MutationObserver(this.onMutation.bind(this));
-
-		this.observer.observe(this.target, {
-			'childList': true,
-			'attributes': true,
-			'attributeFilter': [
-				'id', 'class'
-			],
-			'characterData': false,
-			'subtree': true,
-			'attributeOldValue': false,
-			'characterDataOldValue': false
-		});
-
-	}
-};
-
-// return as a require.js module
-if (typeof module !== 'undefined') {
-	exports = module.exports = WaitForIt;
-}
-
-/*
-	Source:
 	van Creij, Maurice (2018). "imagefallback.js: Replace missing images", http://www.woollymittens.nl/.
 
 	License:
@@ -141,6 +57,17 @@ var ImageFallback = function (config) {
 		element.style.backgroundImage = 'url("' + this.config.url + '")';
 	};
 
+	this.onStartUp = function(evt) {
+		// check if any of the images have failed before the script loaded
+		var images = document.querySelectorAll(this.config.images);
+		for (var a = 0, b = images.length; a < b; a += 1) {
+			if (typeof images[a].naturalWidth != "undefined" && images[a].naturalWidth == 0) this.onImageError(images[a]);
+		}
+		// check all the inline backgrounds at least once
+		var backgrounds = document.querySelectorAll(this.config.backgrounds);
+		this.checkBackgrounds(backgrounds);
+	};
+
 	// EVENTS
 
 	if (!this.config.active) return false;
@@ -159,8 +86,10 @@ var ImageFallback = function (config) {
 		'repeat': true
 	});
 
+	window.addEventListener('load', this.onStartUp.bind(this));
+
 };
 
 // return as a require.js module
-if (typeof define != 'undefined') define(['imagefallback'], function () { return ImageFallback });
+if (typeof define != 'undefined') define([], function () { return ImageFallback });
 if (typeof module != 'undefined') module.exports = ImageFallback;

@@ -12,6 +12,21 @@ This include can be added to the header or placed inline before the script is in
 <script src="./js/imagefallback.js"></script>
 ```
 
+Or use [Require.js](https://requirejs.org/).
+
+```js
+requirejs(['js/imagefallback.js'], function(ImageFallback) {
+	...
+});
+```
+
+Or import into an MVC framework.
+
+```js
+var ImageFallback = require('js/imagefallback.js');
+```
+
+
 ## How to start the script
 
 ```html

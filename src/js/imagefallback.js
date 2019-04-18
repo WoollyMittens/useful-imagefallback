@@ -57,6 +57,17 @@ var ImageFallback = function (config) {
 		element.style.backgroundImage = 'url("' + this.config.url + '")';
 	};
 
+	this.onStartUp = function(evt) {
+		// check if any of the images have failed before the script loaded
+		var images = document.querySelectorAll(this.config.images);
+		for (var a = 0, b = images.length; a < b; a += 1) {
+			if (typeof images[a].naturalWidth != "undefined" && images[a].naturalWidth == 0) this.onImageError(images[a]);
+		}
+		// check all the inline backgrounds at least once
+		var backgrounds = document.querySelectorAll(this.config.backgrounds);
+		this.checkBackgrounds(backgrounds);
+	};
+
 	// EVENTS
 
 	if (!this.config.active) return false;
@@ -75,8 +86,10 @@ var ImageFallback = function (config) {
 		'repeat': true
 	});
 
+	window.addEventListener('load', this.onStartUp.bind(this));
+
 };
 
 // return as a require.js module
-if (typeof define != 'undefined') define(['imagefallback'], function () { return ImageFallback });
+if (typeof define != 'undefined') define([], function () { return ImageFallback });
 if (typeof module != 'undefined') module.exports = ImageFallback;
