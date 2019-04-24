@@ -26,7 +26,6 @@ Or import into an MVC framework.
 var ImageFallback = require('js/imagefallback.js');
 ```
 
-
 ## How to start the script
 
 ```html
