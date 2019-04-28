@@ -9,13 +9,17 @@ Try the <a href="http://www.woollymittens.nl/default.php?url=useful-imagefallbac
 This include can be added to the header or placed inline before the script is invoked.
 
 ```html
-<script src="./js/imagefallback.js"></script>
+<script src="lib/waitforit.js"></script>
+<script src="js/imagefallback.js"></script>
 ```
 
 Or use [Require.js](https://requirejs.org/).
 
 ```js
-requirejs(['js/imagefallback.js'], function(ImageFallback) {
+requirejs([
+	'lib/waitforit.js',
+	'js/imagefallback.js'
+], function(WaitForIt, ImageFallback) {
 	...
 });
 ```
@@ -23,6 +27,7 @@ requirejs(['js/imagefallback.js'], function(ImageFallback) {
 Or import into an MVC framework.
 
 ```js
+var WaitForIt = require('lib/waitforit.js');
 var ImageFallback = require('js/imagefallback.js');
 ```
 
